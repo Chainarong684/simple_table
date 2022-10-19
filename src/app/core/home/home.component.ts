@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   fetchNewsData() {
-    const data = this.serverServices.getAllNews().subscribe({
+    this.serverServices.getAllNews().subscribe({
       next: (res) => {
         console.log(res.data);
         this.newsData = res.data;
@@ -30,18 +30,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  test(val: any) {
-    console.log(val);
-  }
-
   onChangeStatus(id: number, status: boolean) {
     const req = {
       EmployeeId: 3,
       NewsId: id,
       Status: status ? 1 : 0,
     };
-
-    console.log(req);
 
     this.serverServices.updateStatusByNewsId(req).subscribe({
       next: (res) => {
@@ -69,5 +63,15 @@ export class HomeComponent implements OnInit {
   }
   onClickDelete(id: number) {
     this.displayNews = this.newsData.find((item) => item.NewsId === id);
+  }
+
+  onConfirmDelete() {
+    if (this.newsData.length > 1) {
+      this.newsData = this.newsData.filter(
+        (item) => item.NewsId !== this.displayNews?.NewsId
+      );
+    } else {
+      alert('ไม่สามารถลบทั้งหมดได้');
+    }
   }
 }
