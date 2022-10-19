@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/config/server.service';
 import { NewsData } from 'src/app/models/news.model';
-import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +27,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onChangeStatus(id: number) {
-    console.log(id);
+  test(val: any) {
+    console.log(val);
   }
+
+  onChangeStatus(id: number, status: boolean) {
+    console.log(id, status);
+  }
+
+  onClickView() {}
+  onClickEdit() {}
+  onClickDelete() {}
 }
