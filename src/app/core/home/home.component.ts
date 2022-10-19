@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     const req = {
       EmployeeId: 3,
       NewsId: id,
-      Status: status,
+      Status: status ? 1 : 0,
     };
 
     console.log(req);
