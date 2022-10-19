@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/config/server.service';
 import { NewsData } from 'src/app/models/news.model';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,10 @@ export class HomeComponent implements OnInit {
   newsData: NewsData[] = [];
 
   ngOnInit(): void {
-    this.fetchData();
+    this.fetchNewsData();
   }
 
-  fetchData() {
+  fetchNewsData() {
     const data = this.serverServices.getNews().subscribe({
       next: (res) => {
         this.newsData = res.data;
@@ -25,5 +26,9 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  onChangeStatus(id: number) {
+    console.log(id);
   }
 }
