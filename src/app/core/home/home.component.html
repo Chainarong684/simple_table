@@ -1,13 +1,18 @@
 <div class="w-50 m-auto translate-y-[50%] shadow-md border rounded-lg p-10">
   <div class="flex justify-between items-center mb-5">
     <h3 class="text-indigo-800">ข่าวประชาสัมพันธ์</h3>
-    <button class="btn !bg-green-500 text-white hover:!bg-green-600">
+    <button
+      class="btn !bg-green-500 text-white hover:!bg-green-600"
+      (click)="onClickCreate()"
+      data-bs-toggle="modal"
+      data-bs-target="#formModal"
+    >
       <i class="bi bi-plus-circle"></i>
       <span class="ml-2">เพิ่มข่าว</span>
     </button>
   </div>
   <p class="text-indigo-800">รายการข่าวประชาสัมพันธ์</p>
-  <table class="table table-striped table-hover">
+  <table class="table table-striped table-hover shadow-sm">
     <thead>
       <tr class="bg-indigo-400">
         <th class="text-center"></th>
@@ -31,17 +36,32 @@
         <td>{{ item.UpdatedDate | date: "medium" }}</td>
         <td class="text-center">
           <div class="flex justify-center gap-2">
-            <button *ngIf="item.ButtonView" (click)="onClickView()">
+            <button
+              *ngIf="item.ButtonView"
+              (click)="onClickView(item.NewsId)"
+              data-bs-toggle="modal"
+              data-bs-target="#formModal"
+            >
               <i
                 class="bg-zinc-200 rounded-full p-1 text-green-500 bi bi-eye-fill hover:bg-sky-200"
               ></i>
             </button>
-            <button *ngIf="item.ButtonView" (click)="onClickEdit()">
+            <button
+              *ngIf="item.ButtonView"
+              (click)="onClickEdit(item.NewsId)"
+              data-bs-toggle="modal"
+              data-bs-target="#formModal"
+            >
               <i
                 class="bg-zinc-200 rounded-full p-1 text-blue-500 bi bi-pencil-square hover:bg-sky-200"
               ></i>
             </button>
-            <button *ngIf="item.ButtonView" (click)="onClickDelete()">
+            <button
+              *ngIf="item.ButtonView"
+              (click)="onClickDelete(item.NewsId)"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+            >
               <i
                 class="bg-zinc-200 rounded-full p-1 text-red-500 bi bi-trash3-fill hover:bg-sky-200"
               ></i>
@@ -51,4 +71,100 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-indigo-400">
+        <p class="modal-title text-white">รายการข่าวประชาสัมพันธ์</p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3 row">
+          <label for="newsName" class="col-sm-2 col-form-label"
+            >ชื่อเรื่อง</label
+          >
+          <div class="col-sm-10">
+            <input
+              required
+              [disabled]="isEnable"
+              type="text"
+              class="form-control"
+              id="newsName"
+              [value]="displayNews?.NameNews"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="newsDetail" class="col-sm-2 col-form-label"
+            >เนื้อหา</label
+          >
+          <div class="col-sm-10">
+            <textarea
+              required
+              [disabled]="isEnable"
+              rows="3"
+              type="text"
+              class="form-control"
+              id="newsDetail"
+              [value]="displayNews?.Detail"
+            ></textarea>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="newsDetail" class="col-sm-2 col-form-label">สถาณะ</label>
+          <div class="col-sm-10">
+            <ui-switch
+              [disabled]="isEnable"
+              size="small"
+              [checked]="displayNews?.Status === 1"
+            ></ui-switch>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          *ngIf="!isEnable"
+          class="btn !bg-green-500 text-white hover:!bg-green-600"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-indigo-400">
+        <p class="modal-title text-white">
+          คุณต้องการลบเรื่อง "{{ displayNews?.NameNews }}"
+        </p>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Delete
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

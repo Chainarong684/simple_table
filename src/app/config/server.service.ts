@@ -9,9 +9,16 @@ import { News } from '../models/news.model';
 export class ServiceService {
   constructor(private http: HttpClient) {}
 
-  getNews(): Observable<any> {
-    return this.http.get<any>(
+  getAllNews(): Observable<News> {
+    return this.http.get<News>(
       'http://dev-sw6-uapi.ecm.in.th/uapi/drt-ElectronicsDocument/ED-GetNews?EmployeeId=3'
+    );
+  }
+
+  updateStatusByNewsId(body: any): Observable<any> {
+    return this.http.post<any>(
+      'http://dev-sw6-uapi.ecm.in.th/uapi/drt-ElectronicsDocument/ED-UpdateStatusNews',
+      body
     );
   }
 }
