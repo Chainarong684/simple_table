@@ -47,7 +47,7 @@
               ></i>
             </button>
             <button
-              *ngIf="item.ButtonView"
+              *ngIf="item.ButtonEdit"
               (click)="onClickEdit(item.NewsId)"
               data-bs-toggle="modal"
               data-bs-target="#formModal"
@@ -57,7 +57,7 @@
               ></i>
             </button>
             <button
-              *ngIf="item.ButtonView"
+              *ngIf="item.ButtonDelete"
               (click)="onClickDelete(item.NewsId)"
               data-bs-toggle="modal"
               data-bs-target="#deleteModal"

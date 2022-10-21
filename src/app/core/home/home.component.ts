@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit {
       Status: status ? 1 : 0,
     };
 
+    console.log(req);
+
     this.serverServices.updateStatusByNewsId(req).subscribe({
       next: (res) => {
         console.log(res);
